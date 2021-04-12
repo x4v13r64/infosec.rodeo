@@ -20,7 +20,7 @@ url: 'http://infosec.rodeo'
 
 author: Xavier Garceau-Aranda                  # change to your full name
 
-avatar: /assets/img/sample/avatar.jpg   # support internet resources
+avatar: /assets/img/favicons/avatar.png   # support internet resources
 
 github:
   username: j4v            # change to your github username
