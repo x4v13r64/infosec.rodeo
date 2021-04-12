@@ -11,12 +11,9 @@
 title: Xavier Garceau-Aranda                          # the main title
 tabtitle: Infosec Rodeo
 
-tagline: So is the life of a digital cowboy.  # it will display as the sub-title
+tagline: Research & Musings, Archive  # it will display as the sub-title
 
-description: >-                        # used by seo meta and the atom feed
-  A minimal, portfolio, sidebar,
-  bootstrap Jekyll theme with responsive web design
-  and focuses on text presentation.
+description: Research & Musings, Archive                        # used by seo meta and the atom feed
 
 # Replace with the website url, e.g. 'https://username.github.io'
 url: 'http://infosec.rodeo'
@@ -28,19 +25,22 @@ avatar: /assets/img/sample/avatar.jpg   # support internet resources
 github:
   username: j4v            # change to your github username
 
-twitter:
-  username: twitter_username            # change to your twitter username
+linkedin:
+    username: xaviergarceauaranda
+
+  #twitter:
+  #username: twitter_username            # change to your twitter username
 
 social:
   name: Xavier Garceau-Aranda                  # it will shows as the copyright owner in Footer
   email: xavier.garceau-aranda@owasp.org             # change to your email address
   links:
     # The first element serves as the copyright owner's link
+    - https://www.linkedin.com/in/xaviergarceauaranda/
     #- https://twitter.com/username      # change to your twitter homepage
     - https://github.com/j4v       # change to your github homepage
     # Uncomment below to add more social links
     # - https://www.facebook.com/username
-    - https://www.linkedin.com/in/xaviergarceauaranda/
 
 google_site_verification: google_meta_tag_verification # change to your verification string
 

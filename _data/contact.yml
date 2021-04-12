@@ -6,10 +6,10 @@
 
 -
   type: github
-  icon: 'fab fa-github-alt'
+  icon: 'fab fa-github'
 -
   type: twitter
-  icon: 'fab fa-twitter'
+  icon: 'fab fa-linkedin'
 -
   type: email
   icon: 'fas fa-envelope'
@@ -25,7 +25,7 @@
 #   url:  ''                  # Fill with your mastodon account page
 # -
 #   icon: 'fab fa-linkedin'   # icons powered by <https://fontawesome.com/>
-#   url:  ''                  # Fill with your Linkedin homepage
+#   url:  'https://www.linkedin.com/in/xaviergarceauaranda/'                  # Fill with your Linkedin homepage
 # -
 #   icon: 'fab fa-stack-overflow'
 #   url:  ''                  # Fill with your stackoverflow homepage
