@@ -6,65 +6,65 @@
   MIT License
 -->
 
-<div id="panel-wrapper" class="col-xl-3 pl-2 text-muted topbar-down">
+<!--<div id="panel-wrapper" class="col-xl-3 pl-2 text-muted topbar-down">-->
 
-  <div class="access">
+<!--  <div class="access">-->
 
-  {% if site.data.updates %}
+<!--  {% if site.data.updates %}-->
 
-    {% include update-list.html %}
+<!--    {% include update-list.html %}-->
 
-    {% if update_list.size > 0 %}
+<!--    {% if update_list.size > 0 %}-->
 
-    <div id="access-lastmod" class="post">
-      <h3 data-toc-skip>
-        {{- site.data.label.panel.lastmod -}}
-      </h3>
-      <ul class="post-content pl-0 pb-1 ml-1 mt-2">
+<!--    <div id="access-lastmod" class="post">-->
+<!--      <h3 data-toc-skip>-->
+<!--        {{- site.data.label.panel.lastmod -}}-->
+<!--      </h3>-->
+<!--      <ul class="post-content pl-0 pb-1 ml-1 mt-2">-->
 
-      {% for item in update_list %}
-        {% assign post_url = item | split: "::" | last | url_encode | prepend: "/posts/" | append: "/" %}
-        {% assign post = site.posts | where: "url", post_url | first %}
+<!--      {% for item in update_list %}-->
+<!--        {% assign post_url = item | split: "::" | last | url_encode | prepend: "/posts/" | append: "/" %}-->
+<!--        {% assign post = site.posts | where: "url", post_url | first %}-->
 
-        {% if post %}
-          {% assign url = post.url | relative_url %}
-          <li><a href="{{ url }}">{{ post.title }}</a></li>
-        {% endif %}
+<!--        {% if post %}-->
+<!--          {% assign url = post.url | relative_url %}-->
+<!--          <li><a href="{{ url }}">{{ post.title }}</a></li>-->
+<!--        {% endif %}-->
 
-      {% endfor %}
+<!--      {% endfor %}-->
 
-      </ul>
-    </div><!-- #access-lastmod -->
+<!--      </ul>-->
+<!--    </div>&lt;!&ndash; #access-lastmod &ndash;&gt;-->
 
-    {% endif %}
+<!--    {% endif %}-->
 
-  {% endif %} <!-- site.data.updates -->
+<!--  {% endif %} &lt;!&ndash; site.data.updates &ndash;&gt;-->
 
-  {% include trending-tags.html %}
+<!--  {% include trending-tags.html %}-->
 
-  {% if trending_tags.size > 0 %}
-    <div id="access-tags">
-      <h3 data-toc-skip>
-        {{- site.data.label.panel.trending_tags -}}
-      </h3>
-      <div class="d-flex flex-wrap mt-3 mb-1 mr-3">
+<!--  {% if trending_tags.size > 0 %}-->
+<!--    <div id="access-tags">-->
+<!--      <h3 data-toc-skip>-->
+<!--        {{- site.data.label.panel.trending_tags -}}-->
+<!--      </h3>-->
+<!--      <div class="d-flex flex-wrap mt-3 mb-1 mr-3">-->
 
-      {% for tag in trending_tags %}
-        {% capture url %}/tags/{{ tag | downcase | url_encode }}/{% endcapture %}
-        <a class="post-tag" href="{{ url | relative_url }}">{{ tag | replace: '-', ' ' }}</a>
-      {% endfor %}
-      </div>
-    </div>
-  {% endif %}
-  </div> <!-- .access -->
+<!--      {% for tag in trending_tags %}-->
+<!--        {% capture url %}/tags/{{ tag | downcase | url_encode }}/{% endcapture %}-->
+<!--        <a class="post-tag" href="{{ url | relative_url }}">{{ tag | replace: '-', ' ' }}</a>-->
+<!--      {% endfor %}-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  {% endif %}-->
+<!--  </div> &lt;!&ndash; .access &ndash;&gt;-->
 
-  {% if page.layout == 'post' and site.toc and page.toc %}
-  <div id="toc-wrapper" class="pl-0 pr-4 mb-5">
-    <h3 data-toc-skip class="pl-3 pt-2 mb-2">
-      {{- site.data.label.panel.toc -}}
-    </h3>
-    <nav id="toc" data-toggle="toc"></nav>
-  </div>
-  {% endif %}
+<!--  {% if page.layout == 'post' and site.toc and page.toc %}-->
+<!--  <div id="toc-wrapper" class="pl-0 pr-4 mb-5">-->
+<!--    <h3 data-toc-skip class="pl-3 pt-2 mb-2">-->
+<!--      {{- site.data.label.panel.toc -}}-->
+<!--    </h3>-->
+<!--    <nav id="toc" data-toggle="toc"></nav>-->
+<!--  </div>-->
+<!--  {% endif %}-->
 
-</div> <!-- #panel-wrapper -->
+<!--</div> &lt;!&ndash; #panel-wrapper &ndash;&gt;-->
