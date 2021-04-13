@@ -8,8 +8,10 @@
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 #--------------------------
 
-title: Xavier Garceau-Aranda                          # the main title
-tabtitle: Infosec Rodeo
+title: infosec.rodeo                          # the main title
+title-first: Xavier
+title-last: Garceau-Aranda
+tabtitle: infosec.rodeo
 
 tagline: Research & Musings, Archive  # it will display as the sub-title
 
