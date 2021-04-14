@@ -1,7 +1,7 @@
 ---
 title: Tool – Cloud IP Ranges
 author: Xavier Garceau-Aranda
-date: 2019-12-8 09:00:00 +0300
+date: 2020-12-8 09:00:00 +0300
 ---
 
 # [Cloud IP Ranges](https://github.com/nccgroup/cloud_ip_ranges){:target="_blank"}

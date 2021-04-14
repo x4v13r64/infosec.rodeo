@@ -1,7 +1,7 @@
 ---
 title: Tool – S3 Objects Check
 author: Xavier Garceau-Aranda
-date: 2019-08-9 09:00:00 +0300
+date: 2020-11-27 09:00:00 +0300
 ---
 
 # [S3 Objects Check](https://github.com/nccgroup/s3_objects_check){:target="_blank"}
