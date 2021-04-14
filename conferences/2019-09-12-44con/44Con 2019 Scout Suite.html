@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- adapted from boilerplate-local.html -->
+    <title>GCP Training</title>
+    <link rel="shortcut icon" type="image/png" href="img/icon.jpeg"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style type="text/css">
+        @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+        @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+        @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+        body { font-family: 'Droid Serif'; }
+        h1, h2, h3 {
+            font-family: 'Yanone Kaffeesatz';
+            font-weight: normal;
+        }
+        .remark-slide-content {
+            /* Default size is 20px */
+            /* Source: https://github.com/tobanw/remark-example/blob/master/remark-slides.html */
+            font-size:20px;
+            /* Background */
+            /* Source: http://havard.github.com/node.js-intro-norwegian
+               https://github.com/gnab/remark/wiki/Markdown#background-image
+               https://www.w3schools.com/cssref/pr_background-image.asp
+               https://github.com/gnab/remark/issues/121
+            */
+            background-image: url(img/sc_2019-09-11_13h58m08s.jpg) ;
+            background-position: top right;
+            background-size: 13%;
+        }
+        .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+
+        /* Two-column layout, see: http://www.jmlilly.net/talks/bigdata16.html#1 */
+        .left-column {
+            width: 50%;
+            float: left;
+        }
+        .right-column {
+            width: 49%;
+            float: right;
+            padding-top: 0em;
+            margin-top: 0em;
+            text-align: left;
+        }
+        /* Tricks to resize images, see: https://github.com/gnab/remark/issues/72 */
+        .image-1 img { width: 1%; }
+        .image-2 img { width: 2%; }
+        .image-3 img { width: 3%; }
+        .image-4 img { width: 4%; }
+        .image-5 img { width: 5%; }
+        .image-6 img { width: 6%; }
+        .image-7 img { width: 7%; }
+        .image-8 img { width: 8%; }
+        .image-9 img { width: 9%; }
+        .image-10 img { width: 10%; }
+        .image-15 img { width: 15%; }
+        .image-20 img { width: 20%; }
+        .image-25 img { width: 25%; }
+        .image-30 img { width: 30%; }
+        .image-35 img { width: 35%; }
+        .image-40 img { width: 40%; }
+        .image-45 img { width: 45%; }
+        .image-50 img { width: 50%; }
+        .image-55 img { width: 55%; }
+        .image-60 img { width: 60%; }
+        .image-65 img { width: 65%; }
+        .image-70 img { width: 70%; }
+        .image-75 img { width: 75%; }
+        .image-80 img { width: 80%; }
+        .image-85 img { width: 85%; }
+        .image-90 img { width: 90%; }
+        .image-95 img { width: 95%; }
+        .image-100 img { width: 100%; }
+        .image-110 img { width: 110%; }
+        .image-120 img { width: 120%; }
+        /* Tricks to resize text */
+        .text-8 { font-size:8px; }
+        .text-10 { font-size:10px; }
+        .text-12 { font-size:12px; }
+        .text-14 { font-size:14px; }
+        .text-16 { font-size:16px; }
+        .text-18 { font-size:18px; }
+        .text-20 { font-size:20px; }
+        .text-22 { font-size:22px; }
+        .text-24 { font-size:24px; }
+        .text-26 { font-size:26px; }
+        .text-28 { font-size:28px; }
+        /* footnote to place at the bottom of a slide */
+        /* Source: https://github.com/gnab/remark/issues/229 */
+        .footnote { font-size:12px; position: absolute; bottom: 20px; left: 40px }
+
+        /* colors */
+        .red { color: #FF0000; }
+
+        /* template stuff */
+        /* Defining a variable */
+        /* Source: https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables */
+        :root {
+            --ncc-color: #C10A28;  /* same color as logo */
+        }
+        .ncc-color {
+            color: var(--ncc-color);
+        }
+        /* Title same color as logo */
+        /* Source: https://www.w3schools.com/css/css_text.asp */
+        h1 {
+            color: var(--ncc-color);
+        }
+        h1:after {
+            content:' ';
+            display:block;
+            border:1px solid var(--ncc-color);
+            border-radius:4px;
+            -webkit-border-radius:4px;
+            -moz-border-radius:4px;
+            box-shadow:inset 0 1px 1px rgba(0, 0, 0, .05);
+            -webkit-box-shadow:inset 0 1px 1px rgba(0, 0, 0, .05);
+            -moz-box-shadow:inset 0 1px 1px rgba(0, 0, 0, .05);
+        }
+        /* Slide number */
+        /* Source: https://github.com/yihui/xaringan/wiki/Slide-number */
+        .remark-slide-number {
+            color: var(--ncc-color);
+            opacity: 1; /* default: 0.5 */
+        }
+
+        /* Add borders to tables */
+        /* https://stackoverflow.com/questions/27300329/table-with-borders-in-html-and-latex-output-from-markdown-source-with-pandoc */
+        table {
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 24px;
+            border-spacing: 0;
+            border-bottom: 2px solid black;
+            border-top: 2px solid black;
+        }
+        table th {
+            padding: 3px 10px;
+            background-color: white;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            border-bottom: 1px solid black;
+        }
+        table td {
+            padding: 3px 10px;
+            border-top: none;
+            border-left: none;
+            border-bottom: none;
+            border-right: none;
+        }
+
+    </style>
+</head>
+<body>
+<textarea id="source">
+
+    class: center, middle
+
+    .ncc-color[
+    # Scout Suite – A Multi-Cloud Security Auditing Tool
+
+    ## Presented by Xavier Garceau-Aranda
+    ### Senior Security Consultant, NCC Group 
+    ]
+
+    #### 44Con – September 2019
+
+    ---
+
+    # Introduction
+
+    Scout Suite (https://github.com/nccgroup/ScoutSuite) is an open source multi-cloud security-auditing tool, which enables security posture assessment of cloud environments.
+
+    Using the APIs exposed by cloud providers, Scout Suite gathers configuration data for manual inspection and highlights risk areas. Rather than going through dozens of pages on the web consoles, Scout Suite presents a clear view of the attack surface automatically.
+
+    The following cloud providers are currently supported:
+
+    - Amazon Web Services
+    - Microsoft Azure
+    - Google Cloud Platform
+    - Alibaba Cloud (alpha)
+    - Oracle Cloud Infrastructure (alpha)
+
+    ???
+
+    * We've just released support for a number of new cloud providers, to further demonstrate how Scout Suite's cloud-agnostic architecture allows for great extensibility.
+
+    ---
+
+    # Project Details
+
+    * Formally known as Scout2 (https://github.com/nccgroup/Scout2).
+        * Most of the tool has since been refactored to handle the multi-cloud paradigm elegantly. This has in turn allowed adding support for Azure, Google Cloud Platform and however many more cloud providers.
+    * Released under the GNU General Public License v2.0
+    * Has received contributions from over 24 developers.
+    * Additional details can be found at https://github.com/nccgroup/ScoutSuite/wiki
+
+    ???
+
+    * Project started in 2013, AWS-specific
+    * Significant contributions have been made by 7 developers, from NCC and academia
+
+    ---
+
+    # The Multi-Cloud Paradigm
+
+    With the steady rise of cloud adoption, many organizations find themselves splitting their resources between multiple cloud providers. 
+
+    The main reasons for this are:
+
+    * Cost
+    * Familiarity
+    * Offering
+    * Resilience
+
+    While the readiness to deal with security in cloud native environments has been improving, the multi-cloud paradigm poses new challenges.
+
+    ???
+
+    * Familiarity - e.g. different teams with diverging knowledge/experience
+    * Offering - especially SaaS differences
+    * Resilience - of a distributed environment
+
+    ---
+
+    # Cloud Provider Similarities
+
+    Offering:
+
+    * Identity and Access Management
+        * Users/Groups, programmatic identities (Roles/Service Principals/Service Accounts), Policies/Permissions
+    * Regions, Virtual Private Clouds (VPCs), Resources
+    * IaaS, PaaS, SaaS, FaaS services
+
+    Risks:
+
+    * Access Controls
+        * Credential Leaks & Privilege Escalation
+    * Publically Accessible Resources
+        * Virtual Machines, Databases, Storage Buckets, etc.
+    * Development practices
+    * Incident Response & Disaster Recovery
+
+    ???
+
+    * Similar offering and risks across all providers.
+    * Scout's architecture aims to support these similarities, and help identify risks.
+    * Remediation is hard as it's very case by case. A good example of this is privilege escalation (provide CloudFormation example). Scout focusses on helping identify and understand the flaw, over providing a solution.
+    ---
+
+    # Scout Suite – Demo
+
+    .image-90[.center[![](img/scout-report.jpg)]]
+
+    ---
+
+    # Scout Suite – Architecture
+
+
+    .image-100[.center[![](img/BH Arsenal 2019 Scout Suite.html_img1.png)]]
+
+    ???
+
+    Scout provides an overarching framework tailored to cloud provider commonalities, but also allows for flexibility within the provider itself.
+
+    The main components are:
+    * Core: contains the rule processing engine, the command line interface logic, logging methods and some utils.
+    * Output: contains the logic used to transform the scanned data into a web report. The web report scaffolding is located inside the output.data.inc-scoutsuite submodule.
+    * Providers: each module contains all the data fetching logic for a provider.
+
+    ---
+
+    # Scout Suite – Provider Support
+
+    * Amazon Web Services
+        * 25 services & >130 rules
+    * Microsoft Azure
+        * 6 services & ~30 rules
+    * Google Cloud Platform
+        * 7 services & ~30 rules
+    * Alibaba Cloud
+        * 6 services & ~20 rules
+    * Oracle Cloud Infrastructure
+        * 3 services & ~10 rules
+
+    ???
+
+    ---
+
+    # Scout Suite – Advanced Features
+
+    * Findings & Rulesets
+        * https://github.com/nccgroup/ScoutSuite/wiki/HowTo:-Use-with-a-custom-ruleset
+    * Exceptions
+        * https://github.com/nccgroup/ScoutSuite/wiki/HowTo:-Create-and-use-a-list-of-exceptions
+    * Exports to CSV & JSON
+    * Report Parsing
+        * https://github.com/nccgroup/ScoutSuite/wiki/HowTo:-Exporting-and-Programmatically-Access-of-Scout-Suite-Data
+
+    ???
+
+    * Report parsing can be leveraged by other tools.
+
+    ---
+
+    # Scenarios
+
+
+    .image-100[.center[![](img/BH Arsenal 2019 Scout Suite.html_providers.jpg)]]
+
+    ???
+
+    * Run Scout Suite against a number of cloud environments preconfigured with typical flaws. We will display how Scout can be used to identify and help with remediation of security misconfigurations.
+    * In the demo show not only that Scout flags issues, but also how the report allows identifying more complex and cross-service issues.
+
+    ---
+
+    # Scenarios – AWS: Privilege Escalation Vector
+
+
+    .image-100[.center[![](img/BH Arsenal 2019 Scout Suite.html_img5.png)]]
+
+    ???
+
+    * External Role with no MFA / External ID & access to CloudFormation + CloudFormation stack with IAM privileges = privilege escalation vector
+
+    ---
+
+    # Scenarios – Azure: Exposed Virtual Machines
+
+
+    .image-40[.center[![](img/BH Arsenal 2019 Scout Suite.html_img6.png)]]
+
+    ???
+
+    ---
+
+    # Scenarios – Google Cloud Platform: Storage Buckets
+
+
+    .image-80[.center[![](img/BH Arsenal 2019 Scout Suite.html_img7.png)]]
+
+    ???
+
+    ---
+
+    # Scout – Public Cloud Account Monitoring
+
+    Scout is a user-friendly SaaS platform providing self-service compliance through persistent monitoring of your public cloud accounts, allowing you to check they’re configured in line with industry best practice.
+
+    * Persistent monitoring: so you know about changes or issues as they arise
+    * One tool: all configuration checks in one place for speed and simplicity
+    * Multi-vendor support: AWS, Azure and GCP public cloud accounts
+    * Agnostic platform: a trusted third-party tool
+
+    .footnote[Source: https://my.nccgroup.com/our-services/service-details/16/scout:-pscoutublic-cloud-account-monitoring]
+
+    ???
+
+    ---
+
+    # Going Forward
+
+    * Improve provider support
+    * Addition of a plugin system
+        * Privilege escalation checks, identification of publically exposed instances, etc.
+    * Integration with native security management solutions
+        * AWS Security Hub, Azure Security Center, GCP Security Command Center
+
+    Contribute! The wiki (https://github.com/nccgroup/ScoutSuite/wiki)  has everything you need to get started!
+
+    ???
+
+    ---
+
+    # Special Mentions
+
+    Polytechnique Montréal:
+    * Antoine Boisier-Michaud
+    * Michaël Sghaïer
+    * Rémi Pelletier
+    * Vincent Fortin
+    * Philippe Dugré
+
+    Matt Lewis, NCC Group
+
+    Loïc Simon, author of Scout2
+
+    ---
+
+    # Q&A
+
+    .image-40[.center[![](img/question_mark.png)]]
+
+</textarea>
+
+<script src="js/remark-latest.min.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+    <!-- https://github.com/gnab/remark/wiki/Configuration -->
+    var slideshow = remark.create({
+        ratio: '16:9',
+        highlightLines: true
+    });
+</script>
+</body>
+</html>
