@@ -1,4 +1,4 @@
-# [infosec.rodeo](https://infosec.rodeo/){:target="_blank"}
+# [infosec.rodeo](https://infosec.rodeo/)
 
 Built with https://github.com/cotes2020/jekyll-theme-chirpy/.
 
