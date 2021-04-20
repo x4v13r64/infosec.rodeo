@@ -1,5 +1,5 @@
 ---
-title: Dark Reading Interview – Scout Suite
+title: Dark Reading Interview&#58; Scout Suite by Xavier Garceau-Aranda
 author: Xavier Garceau-Aranda
 date: 2019-08-9 09:00:00 +0300
 ---
