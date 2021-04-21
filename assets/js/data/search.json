@@ -4,14 +4,28 @@ layout: compress
 
 [
   {% for post in site.posts %}
-  {
-    "title": "{{ post.title | escape }}",
-    "url": "{{ site.baseurl }}{{ post.url }}",
-    "categories": "{{ post.categories | join: ', '}}",
-    "tags": "{{ post.tags | join: ', ' }}",
-    "date": "{{ post.date }}",
-    {% include no-linenos.html content=post.content %}
-    "snippet": "{{ content | strip_html | strip_newlines | remove_chars | escape | truncate: 300 | replace: '\', '\\\\' }}"
-  }{% unless forloop.last %},{% endunless %}
+    {% if post.link %}
+      {
+      "title": "{{ post.title}}",
+      "url": "{{ post.link }}",
+      "target": "target=\"_blank\"",
+      "categories": "{{ post.categories | join: ', '}}",
+      "tags": "{{ post.tags | join: ', ' }}",
+      "date": "{{ post.date }}",
+      {% include no-linenos.html content=post.content %}
+      "snippet": "{{ post.link }}"
+      }{% unless forloop.last %},{% endunless %}
+    {% else %}
+      {
+      "title": "{{ post.title}}",
+      "url": "{{ site.url }}{{ site.baseurl }}{{ post.url }}",
+      "target": "",
+      "categories": "{{ post.categories | join: ', '}}",
+      "tags": "{{ post.tags | join: ', ' }}",
+      "date": "{{ post.date }}",
+      {% include no-linenos.html content=post.content %}
+      "snippet": "{{ content | strip_html | strip_newlines | remove_chars | escape | truncate: 300 | replace: '\', '\\\\' }}"
+      }{% unless forloop.last %},{% endunless %}
+    {% endif %}
   {% endfor %}
 ]

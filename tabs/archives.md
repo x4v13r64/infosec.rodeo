@@ -24,7 +24,11 @@ type: archives
         {% capture this_month %}{{ post.date | date: "%b" }}{% endcapture %}
         <span class="date day">{{ this_day }}</span>
         <span class="date month small text-muted">{{ this_month }}</span>
-        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+          {% if post.link %}
+            <a href="{{ post.link }}" target="_blank"><i class="fas fa-link"></i> {{ post.title }}</a>
+          {% else %}
+            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+          {% endif %}
       </div>
     </li>
   {% if forloop.last %}
