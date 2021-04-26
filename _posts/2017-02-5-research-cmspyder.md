@@ -13,4 +13,4 @@ While the proportion of websites found to be vulnerable may be low, this is most
 ## References
 
 * [Paper](/conferences/2017-02-5-cmspyder/TFM_XavierGarceauAranda.pdf){:target="_blank"}
-* Source Code Repository: <https://github.com/j4v/CMSpyder>{:target="_blank"}
+* Source Code Repository: <https://github.com/x4v13r64/CMSpyder>{:target="_blank"}
