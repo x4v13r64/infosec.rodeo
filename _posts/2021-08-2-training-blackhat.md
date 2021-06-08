@@ -1,7 +1,7 @@
 ---
 title: (UPCOMING) Black Hat USA&#58; Offensive Cloud Security Training
 author: Xavier Garceau-Aranda
-date: 2021-04-20 09:00:00 +0300
+date: 2021-06-7 09:00:00 +0300
 #date: 2021-08-2 09:00:00 +0300
 ---
 
