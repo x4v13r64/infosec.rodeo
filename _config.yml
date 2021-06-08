@@ -35,7 +35,7 @@ linkedin:
 
 social:
   name: Xavier Garceau-Aranda                  # it will shows as the copyright owner in Footer
-  email: xavier.garceau-aranda@owasp.org             # change to your email address
+  email: xavier@infosec.rodeo             # change to your email address
   links:
     # The first element serves as the copyright owner's link
     - https://www.linkedin.com/in/xaviergarceauaranda/
