@@ -142,7 +142,7 @@ This could look something like:
 * Get a list of accessible accounts, **including** the OU layout
     * Accessible as in "where the principal has permissions"
 * Select an account to access
-* Get a temporary token / session for the representation of the principal in that account (just create a new [identifier](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html))
+* Get a temporary token / session for the representation of the principal in that account (just create a new [identifier](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-arns))
     * Similar to a role assumption session, but for the user principal
 
 It would require some refactoring, obviously. But SSO already does something similar by creating roles in accounts when permission sets are assigned to SSO groups in those accounts.
