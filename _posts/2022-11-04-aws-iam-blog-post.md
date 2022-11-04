@@ -64,7 +64,6 @@ A consequence of this change was to remove all sensible meaning to the term "rol
 * It didn't mean *programmatic identities*, since any principal can assume a role
 * It didn't mean *federated identities* (as in IdP/SSO), since user-defined workloads as well as AWS services can assume a role
 
-[^1] https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction_attribute-based-access-control.html#introduction_attribute-based-access-control_compare-rbac
 
 ## Looking around
 
@@ -151,3 +150,5 @@ It would require some refactoring, obviously. But SSO already does something sim
 ## Closing thoughts
 
 I hope this rant is useful to someone, if only to highlight that it's okay to be critical of something most of the industry is using, and that things can always be improved upon.
+
+[^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction_attribute-based-access-control.html#introduction_attribute-based-access-control_compare-rbac
