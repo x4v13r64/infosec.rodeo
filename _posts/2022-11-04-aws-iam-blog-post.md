@@ -115,7 +115,7 @@ To remediate the above:
 
 ## What I'd like to see
 
-Here are some changes that would help improve what I've outline above:
+Here are some changes that would help improve what I've outline above.
 
 ### No more single accounts, Organizations are the default
 
