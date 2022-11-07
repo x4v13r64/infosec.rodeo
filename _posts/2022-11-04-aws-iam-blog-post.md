@@ -26,7 +26,7 @@ Because AWS is doubling down on a flawed Organizational model.
 
 ## A bit of history
 
-We need to go back to the ~~history books~~ Wayback Machine to understand why things are so. [First](https://en.wikipedia.org/wiki/Timeline_of_Amazon_Web_Services) came the services ([this](https://gist.github.com/chitchcock/1281611) rant comes to mind) - S3, SQS and EC2. At that time, "Amazon Web Services" was hardly a "cloud provider", but rather a few disjointed building blocks. It took [many years](https://aws.amazon.com/blogs/aws/iam-identity-access-management/) for the current IAM service to be released. Back then this fit the purpose, namely managing authentication and authorization **in a single AWS account**.
+We need to go back to the ~~history books~~ Wayback Machine to understand why things are so. [First](https://en.wikipedia.org/wiki/Timeline_of_Amazon_Web_Services) came the services (this [rant](https://gist.github.com/chitchcock/1281611) comes to mind) - S3, SQS and EC2. At that time, "Amazon Web Services" was hardly a "cloud provider", but rather a few disjointed building blocks. It took [many years](https://aws.amazon.com/blogs/aws/iam-identity-access-management/) for the current IAM service to be released. Back then this fit the purpose, namely managing authentication and authorization **in a single AWS account**.
 
 The introduction of IAM came with 2 types of principals:
 * Users, representing human actors
@@ -58,12 +58,16 @@ I can envision a meeting in an unmarked office building, downtown Seattle. A tea
 
 And just like that, AWS Organizations as we know it was [born](https://aws.amazon.com/blogs/aws/aws-organizations-policy-based-management-for-multiple-aws-accounts/).
 
-A consequence of this change was to remove all sensible meaning to the term "role", as:
-* It didn't mean **Role** Based Access Control, which is a standard term in the industry (and is *the traditional authorization model used in IAM*[^1])
-    * To be fair, this was an issue from the start
-* It didn't mean *programmatic identities*, since any principal can assume a role
-* It didn't mean *federated identities* (as in IdP/SSO), since user-defined workloads as well as AWS services can assume a role
+How does organizations implement sub-account access via roles? You create [permission sets](https://docs.aws.amazon.com/singlesignon/latest/userguide/permissionsetsconcept.html) in SSO, which are essentially IAM policies. When you "attach" a permission set to an SSO user or group **in a given sub-account**, Organizations will create a role in that account with the permissions defined in the set. 
+Once the user (or member of the group) authenticates to SSO, they're presented with the accounts they can access by assuming the role created by the service. This does allow accessing accounts with different levels of permissions, which is nice.
 
+A consequence of this change was to further remove any coherent meaning for the term "role", as it didn't strictly refer to:
+* *programmatic identities*, since any principal (users, groups & roles) can potentially assume any role and Organizations relies on role assumption for sub-account access
+* *federated identities* (as in IdP/SSO), since workloads as well as AWS services can assume a role
+* **Role** Based Access Control (RBAC), which is a standard term in the industry (and is *the traditional authorization model used in IAM*[^1])
+  * To be fair, this was an issue from the start
+
+So **what** is an IAM role then? Simply put, it's a principal (i.e. an identity) with no long-lived credentials, that can be impersonated for arbitrary purposes.
 
 ## Looking around
 
@@ -117,6 +121,24 @@ To remediate the above:
 
 Here are some changes that would help improve what I've outline above.
 
+### Stop saying "role"
+
+It may be too late, but the term is a misnomer. IAM roles aren't roles, they are service identities. Or service principals. Or service accounts. Calling programmatic identities "roles" is incorrect and confusing. 
+Roles relate to tasks and the permissions required to complete them - they are not an *identity*, they **relate to** an identity.
+
+While we're at it, "assuming" a role makes no sense. It's *impersonating*, or simply *getting temporary credentials for the identity*.
+
+### Make users first class citizens
+
+If we can't rename roles, can we at least stop using them for everything? Couldn't identities created in AWS SSO exist in the Organization's sub-accounts, without using IAM roles?
+
+Something like this:
+* Current: attaching a permission set creates a role in the sub-account that the SSO user can assume to get access to said sub-account
+* Proposed: attaching a permission set creates a representation of the SSO user in the sub-account
+  * The SSO user can get temporary token / session in that account (just create a new [identifier](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-arns)), which has the permissions granted by the permission set
+
+It would require some refactoring, obviously. But SSO already does something similar by creating roles in accounts when permission sets are assigned to SSO groups in those accounts.
+
 ### No more single accounts, Organizations are the default
 
 Take a break from being "first" and replicate the competition's wins for a change. Follow the same model GCP, Azure and even OCI implement and make the creation of an Organization the default when you sign up for AWS.
@@ -127,28 +149,10 @@ Is this a significant task? Sure! Akin to retiring [EC2-Classic](https://aws.ama
 
 This would also solve an issue we see **constantly**, where a company started off with a single account where they deployed all their infrastructure. At some point they figure they need more accounts so they set up Organizations with this account as their management account. Then they realize they need to decouple the management account from the infrastructure, e.g. because SCPs don't apply to that account. Chaos ensues.
 
-### Stop saying "role"
-
-It may be too late, but the term is a misnomer. IAM Roles aren't roles, they are service identities. Or service principals. Or service accounts. Calling programmatic identities "roles" is incorrect and confusing. Roles relate to tasks and the permissions required to complete them - they are not an *identity*, they **relate to** an identity.
-
-While we're at it, "assuming" a role makes no sense. It's *impersonating*, or simply *getting temporary credentials for the service identity*.
-
-### Make users first class citizens
-
-If we can't rename roles, can we at least stop using them for everything? Couldn't identities created in AWS SSO exist in the Organization's sub-accounts?
-
-This could look something like:
-* Authenticate to AWS via SSO
-* Get a list of accessible accounts, **including** the OU layout
-    * Accessible as in "where the principal has permissions"
-* Select an account to access
-* Get a temporary token / session for the representation of the principal in that account (just create a new [identifier](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-arns))
-    * Similar to a role assumption session, but for the user principal
-
-It would require some refactoring, obviously. But SSO already does something similar by creating roles in accounts when permission sets are assigned to SSO groups in those accounts.
-
 ## Closing thoughts
 
 I hope this rant is useful to someone, if only to highlight that it's okay to be critical of something most of the industry is using, and that things can always be improved upon.
+
+Many thanks to Patrick Farwick for his insightful comments and feedback.
 
 [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction_attribute-based-access-control.html#introduction_attribute-based-access-control_compare-rbac
