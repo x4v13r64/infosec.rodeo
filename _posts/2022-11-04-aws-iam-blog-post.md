@@ -153,6 +153,7 @@ This would also solve an issue we see **constantly**, where a company started of
 
 I hope this rant is useful to someone, if only to highlight that it's okay to be critical of something most of the industry is using, and that things can always be improved upon.
 
+
 Many thanks to Patrick Farwick for his insightful comments and feedback.
 
 [^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction_attribute-based-access-control.html#introduction_attribute-based-access-control_compare-rbac
