@@ -1,10 +1,10 @@
 ---
-title: Thoughts on AWS IAM's unnecessary complexity
+title: AWS IAM Roles, a tale of unnecessary complexity
 author: Xavier Garceau-Aranda
 date: 2022-11-04 09:00:00 +0300
 ---
 
-# Thoughts on AWS IAM's unnecessary complexity
+# AWS IAM Roles, a tale of unnecessary complexity
 
 This is going to be a highly opinionated blog post. I think AWS is great and use it daily, but their implementation of IAM is unnecessarily complicated and getting worse.
 
