@@ -4,8 +4,6 @@ author: Xavier Garceau-Aranda
 date: 2022-11-04 09:00:00 +0300
 ---
 
-# AWS IAM Roles, a tale of unnecessary complexity
-
 This is going to be a highly opinionated blog post. I think AWS is great and use it daily, but their implementation of IAM is unnecessarily complicated and getting worse.
 
 >If you can't tolerate critics, don't do anything new or interesting.
@@ -16,11 +14,11 @@ Let's get started.
 
 The [policy evaluation logic](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-denyallow) reads like a James Joyce novel:
 
-![Policy Evaluation Logig](../assets/img/blog/aws_policy_evaluation_logic.png)
+![Policy Evaluation Logic](/assets/img/blog/aws_policy_evaluation_logic.png)
 
 Does it need to be this complex? Maybe not.
 
-![Why are you like this](../assets/img/blog/the-office-steve-carell.gif)
+![Why are you like this](/assets/img/blog/the-office-steve-carell.gif)
 
 Because AWS is doubling down on a flawed Organizational model.
 
@@ -86,7 +84,7 @@ This is where Google Cloud Platform, Google's (not-yet-canned 😅) cloud provid
 
 The result? GCP's [Resource Hierarchy](https://cloud.google.com/resource-manager/docs/cloud-platform-resource-hierarchy):
 
-![GCP Resource Hierarchy](../assets/img/blog/gcp_resource_hierarchy.png)
+![GCP Resource Hierarchy](/assets/img/blog/gcp_resource_hierarchy.png)
 
 >The purpose of the Google Cloud resource hierarchy is two-fold:
 > - Provide a hierarchy of ownership, which binds the lifecycle of a resource to its immediate parent in the hierarchy.
@@ -141,7 +139,7 @@ Something like this:
 
 Take a break from being "first" and replicate the competition's wins for a change. Follow the same model GCP, Azure and even OCI implement and make the creation of an Organization the default when you sign up for AWS.
 
-![Table Head](../assets/img/blog/table_head.png)
+![Table Head](/assets/img/blog/table_head.png)
 
 Is this a significant task? Sure! Akin to retiring [EC2-Classic](https://aws.amazon.com/blogs/aws/ec2-classic-is-retiring-heres-how-to-prepare/).
 
