@@ -16,7 +16,7 @@ The [policy evaluation logic](https://docs.aws.amazon.com/IAM/latest/UserGuide/r
 
 ![Policy Evaluation Logic](/assets/img/blog/aws_policy_evaluation_logic.png)
 
-Does it need to be this complex? Maybe not.
+Does it need to be this complex?
 
 ![Why are you like this](/assets/img/blog/the-office-steve-carell.gif)
 
