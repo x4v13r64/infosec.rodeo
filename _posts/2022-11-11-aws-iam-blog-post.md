@@ -36,7 +36,7 @@ A few years later, the "**roles** for EC2 instances" feature was [released](http
 
 >Today we are introducing AWS Identity and Access management (IAM) roles for EC2 instances, a new feature that makes it even easier for you to securely access AWS service APIs from your EC2 instances. You can create an IAM role, assign it a set of permissions, launch EC2 instances with the IAM role, and then AWS access keys with the specified permissions are automatically made available on those EC2 instances.
 
-Great, this makes sense - no more need to hardcode an IAM users' API keys in your applications and workloads!
+This made sense - no more need to hardcode an IAM users' API keys in your applications and workloads!
 
 This now meant we had a third type of principal:
 * **Roles**, an "identity" that an instance, workload or application impersonates to gain API permissions
