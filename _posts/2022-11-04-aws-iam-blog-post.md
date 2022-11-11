@@ -4,7 +4,7 @@ author: Xavier Garceau-Aranda
 date: 2022-11-04 09:00:00 +0300
 ---
 
-This is going to be a highly opinionated blog post. I think AWS is great and use it daily, but their implementation of IAM is unnecessarily complicated and getting worse.
+This is going to be a highly opinionated blog post. I think AWS is great and use it daily, but their implementation of IAM is unnecessarily complicated.
 
 >If you can't tolerate critics, don't do anything new or interesting.
 > 
@@ -24,7 +24,7 @@ Because AWS is doubling down on a flawed Organizational model.
 
 ## A bit of history
 
-We need to go back to the ~~history books~~ Wayback Machine to understand why things are so. [First](https://en.wikipedia.org/wiki/Timeline_of_Amazon_Web_Services) came the services (this [rant](https://gist.github.com/chitchcock/1281611) comes to mind) - S3, SQS and EC2. At that time, "Amazon Web Services" was hardly a "cloud provider", but rather a few disjointed building blocks. It took [many years](https://aws.amazon.com/blogs/aws/iam-identity-access-management/) for the current IAM service to be released. Back then it fit the purpose, namely managing authentication and authorization **in a single AWS account**.
+We need to go back to the ~~history books~~ [Wayback Machine](https://web.archive.org/web/20070101134207/http://www.amazon.com/aws/) to understand why things are so. [First](https://en.wikipedia.org/wiki/Timeline_of_Amazon_Web_Services) came the services (this [rant](https://gist.github.com/chitchcock/1281611) comes to mind) - S3, SQS and EC2. At that time, "Amazon Web Services" was hardly a "cloud provider", but rather a few disjointed building blocks. It took [many years](https://aws.amazon.com/blogs/aws/iam-identity-access-management/) for the current IAM service to be released. Back then it fit the purpose, namely managing authentication and authorization **in a single AWS account**.
 
 The introduction of IAM came with 2 types of principals:
 * Users, representing human actors
@@ -36,16 +36,16 @@ A few years later, the "**roles** for EC2 instances" feature was [released](http
 
 >Today we are introducing AWS Identity and Access management (IAM) roles for EC2 instances, a new feature that makes it even easier for you to securely access AWS service APIs from your EC2 instances. You can create an IAM role, assign it a set of permissions, launch EC2 instances with the IAM role, and then AWS access keys with the specified permissions are automatically made available on those EC2 instances.
 
-Great, this makes sense - no more need to hardcode an IAM user's API keys in your applications and workloads!
+Great, this makes sense - no more need to hardcode an IAM users' API keys in your applications and workloads!
 
 This now meant we had a third type of principal:
-* Roles, an "identity" that an instance, workload or application impersonates to gain API permissions
+* **Roles**, an "identity" that an instance, workload or application impersonates to gain API permissions
 
 The implementation of this new principal required the ability to provide EC2 instances with temporary credentials. This was initially only available via the [EC2 Instance Metadata Service](http://docs.amazonwebservices.com/AWSEC2/latest/UserGuide/AESDG-chapter-instancedata.html), but was [later](https://aws.amazon.com/blogs/security/aws-security-token-service-is-now-available-in-every-aws-region/) generalized by the AWS Security Token Service (STS) service. With this new service, you could now easily get temporary credentials for any role. Neat!
 
-As adoption of the cloud grew, organizations started to identify the need for using multiple AWS accounts. This posed a serious problem, because AWS' architecture didn't easily support managing access and permissions for multi-account scenarios. **This point** is where things started going sideways. Instead of refactoring the architecture, AWS did what AWS does best - it built a new service.
+As adoption of the cloud grew, organizations started to identify the need for using multiple AWS accounts. This posed a serious problem, because AWS' architecture didn't easily support managing access and permissions for multi-account scenarios. **This** is where things started going sideways. Instead of refactoring the architecture, AWS did what AWS does best - it built a new service.
 
-I can envision a meeting in an unmarked office building, downtown Seattle. A team is hashing out the details of the new "Organizations" service they've been tasked to build, allowing management of multiple accounts by a single entity. They come to the topic AWS account access:
+I can envision a meeting in an unmarked office building, downtown Seattle. A team is hashing out the details of the new "Organizations" service they've been tasked to build, allowing management of multiple accounts by a single entity. They come to the topic of AWS account access:
 * Product Manager: *How are people going to authenticate to all these accounts?*
 * Engineer: *Why don't we just use roles?*
 * Product Manager: *Roles? I thought those were just for EC2?*
@@ -57,7 +57,7 @@ I can envision a meeting in an unmarked office building, downtown Seattle. A tea
 And just like that, AWS Organizations as we know it was [born](https://aws.amazon.com/blogs/aws/aws-organizations-policy-based-management-for-multiple-aws-accounts/).
 
 How does organizations implement sub-account access via roles? Well, you create [permission sets](https://docs.aws.amazon.com/singlesignon/latest/userguide/permissionsetsconcept.html) in SSO, which are essentially IAM policies. When you "attach" a permission set to an SSO user or group **in a given sub-account**, Organizations will automagically create a role in that account with the permissions defined in the set. 
-Once the user (or member of the group) authenticates to SSO, they're presented with the accounts they can access by assuming (via SSO, not directly) the role created by Organizations. This does allow accessing accounts with different levels of permissions, which is nice.
+Once the user (or member of the group) authenticates to SSO, they're presented with the accounts they can access by assuming (via SSO, not directly) the role created by Organizations.
 
 A consequence of this change was to further remove any coherent meaning for the term "role", as it didn't strictly refer to:
 * *programmatic identities*, since any principal (users, groups & roles) can potentially assume any role and Organizations relies on role assumption for sub-account access
@@ -79,7 +79,7 @@ I think it would have, if AWS hadn't treated "multi-account management" as "just
 
 This is where Google Cloud Platform, Google's (not-yet-canned 😅) cloud provider comes into play. GCP's infancy was similar to AWS' in that the [initial offering](https://en.wikipedia.org/wiki/Google_Cloud_Platform) was a single service, App Engine. But Google had two advantages over Amazon:
 * By being released later (GA in 2011, the same year AWS launched IAM), they surely benefited from the ability to learn from AWS' achievements and mistakes.
-    * They even copied things like the super unsafe and not really useful `allAuthenticatedUsers` bucket [ACL](https://cloud.google.com/storage/docs/access-control/lists#scopes), which AWS [highly recommends against using](https://docs.aws.amazon.com/AmazonS3/latest/userguide/managing-acls.html) (and have hidden away from the web console).
+    * They even copied things like the super unsafe and not really useful `allAuthenticatedUsers` bucket [ACL](https://cloud.google.com/storage/docs/access-control/lists#scopes), which AWS [highly recommends against](https://docs.aws.amazon.com/AmazonS3/latest/userguide/managing-acls.html) (and have hidden away from the web console).
 * Google already had the G Suite identity provider (now Google Workspace), removing the need for a new authentication mechanism.
 
 The result? GCP's [Resource Hierarchy](https://cloud.google.com/resource-manager/docs/cloud-platform-resource-hierarchy):
@@ -92,11 +92,11 @@ The result? GCP's [Resource Hierarchy](https://cloud.google.com/resource-manager
 >
 > Metaphorically speaking, the Google Cloud resource hierarchy resembles the file system found in traditional operating systems as a way of organizing and managing entities hierarchically. Generally, each resource has exactly one parent. **This hierarchical organization of resources enables you to set access control policies and configuration settings on a parent resource, and the policies and Identity and Access Management (IAM) settings are inherited by the child resources.**
 
-The brilliant thing with this implementation is that it ties permissions (e.g. read access to storage buckets) to their location (e.g. the buckets in the `production` project), which provides context. Conversely in AWS, a set of permissions exists within the whole AWS account they belong to. You need to add specific `Conditions` , or to define the `Resources` to which the permissions apply to scope down access. In practice, this is rarely implemented comprehensively and leads to significant complexity. And that's if you're creating the permissions yourself - AWS-Managed permissions will apply to everything in that account.
+The brilliant thing with this implementation is that it ties permissions (e.g. read access to storage buckets) to their location (e.g. the buckets in the `production` project), which provides **context**. In AWS, policies/permissions exists within the whole AWS account they belong to. You need to add specific `Conditions` , or to define the `Resources` to which the permissions apply to scope down access. In practice, this is rarely implemented comprehensively and leads to significant complexity. And that's if you're creating the permissions yourself - AWS-managed permissions will apply to everything in that account.
 
-GCP's resource hierarchy, which you get out of the box, also fosters better isolation of environments. I can't tell you how many times I've seen large, mature organizations have their production, staging and development environments in the same AWS account (often the Organization's management account, which is excluded from Security Control Policies). Compounded with the above, the end result is a proliferation of overly privileged principals.
+Thanks to its ease of use, GCP's resource hierarchy also fosters better isolation of environments. I can't tell you how many times I've seen large, mature organizations have their production, staging and development environments in the same AWS account (often the Organization's management account, which is excluded from Security Control Policies). Compounded with the above, the end result is an environment rich in privilege escalation and lateral movement vectors.
 
-What about the process required for a user to access the different levels of the hierarchy? Easy - if a user has permissions granted in that project (it's really *if a user is assigned a **role** in that project*, but we're already confused enough with the terminology), then they can use those permissions. No need for additional principals, role assumption chains or overly complex edge cases that [almost no one understands](https://ermetic.com/blog/aws/diving-deeply-into-iam-policy-evaluation-highlights-from-aws-reinforce-session-iam433/).
+What about the process required for a GCP user to access the different levels of the hierarchy? Easy - if a user has permissions granted in that project (it's really *if a user is assigned a **role** in that project*, but we're already confused enough with the terminology), then they can use those permissions. No need for additional principals, role assumption chains or overly complex edge cases that [almost no one understands](https://ermetic.com/blog/aws/diving-deeply-into-iam-policy-evaluation-highlights-from-aws-reinforce-session-iam433/).
 
 And when it comes to security, simpler often leads to safer.
 
@@ -108,7 +108,7 @@ GCP IAM is definitely not perfect. When auditing GCP organizations we often find
 2. Lack of a defined resource hierarchy, which limits assigning roles in a manner that adheres to the principle of least privilege
 3. An overuse of basic roles, granting too many permissions
 
-The difference is that these are configuration flaws, which are easier to fix as they are primarily caused by not making the most of GCP's resource hierarchy, rather than the architecture forcing complexity and misconfigurations.
+The difference is that these are sub-par configurations, which are easier to fix as they are primarily caused by not making the most of GCP's resource hierarchy, rather than the architecture forcing complexity and misconfigurations.
 
 To remediate the above:
 1. Grant permissions closer to where they are needed
@@ -122,18 +122,17 @@ Here are some changes that would help improve what I've outline above.
 ### Stop saying "role"
 
 It may be too late, but the term is a misnomer. IAM roles aren't roles, they are service identities. Or service principals. Or service accounts. Calling programmatic identities "roles" is incorrect and confusing. 
-Roles relate to tasks and the permissions required to complete them - they are not an *identity*, they **relate to** an identity.
+Roles relate to tasks and the permissions required to complete them - they are not **an** identity, they **relate to** an identity.
 
-While we're at it, "assuming" a role makes no sense. It's *impersonating*, or simply *getting temporary credentials for the identity*.
+While we're at it, saying "assuming" a role makes no sense. It's *impersonating*, or simply *getting temporary credentials for the identity*.
 
 ### Make users first class citizens
 
-If we can't rename roles, can we at least stop using them for everything? Couldn't identities created in AWS SSO exist in the Organization's sub-accounts, without using IAM roles?
+If we can't rename roles, can we at least stop using them for everything? Couldn't identities created in AWS SSO simply exist in the Organization's sub-accounts?
 
 Something like this:
-* Current: attaching a permission set creates a role in the sub-account that the SSO user can assume to get access to said sub-account
-* Proposed: attaching a permission set creates a representation of the SSO user in the sub-account
-  * The SSO user can get temporary tokens (i.e. create a session) in that account (just create a new [identifier](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-arns)), which has the permissions granted by the permission set
+* Current: Attaching a permission set creates a role in the sub-account that the SSO user can assume to get access to said sub-account.
+* Proposed: Attaching a permission set creates a representation of the SSO user in the sub-account. The SSO user can then get temporary tokens (i.e. create a session) in that account (just create a new [identifier](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-arns)), which has the permissions granted by the permission set.
 
 ### No more single accounts, Organizations are the default
 
@@ -153,4 +152,4 @@ I hope this rant is useful to someone, if only to highlight that it's okay to be
 
 *Many thanks to Patrick Farwick for his insightful comments and feedback.*
 
-[^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction_attribute-based-access-control.html#introduction_attribute-based-access-control_compare-rbac
+[^1]: [Comparing ABAC to the traditional RBAC model](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction_attribute-based-access-control.html#introduction_attribute-based-access-control_compare-rbac)
