@@ -4,3 +4,5 @@ author: Xavier Garceau-Aranda / Latacora
 date: 2021-08-12 09:00:00 +0300
 link: https://www.latacora.com/blog/2021/08/11/remediating-aws-imdsv/
 ---
+
+<a href="https://www.latacora.com/blog/2021/08/11/remediating-aws-imdsv/" target="_blank">https://www.latacora.com/blog/2021/08/11/remediating-aws-imdsv/</a>
