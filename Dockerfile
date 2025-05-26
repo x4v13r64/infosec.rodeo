@@ -17,4 +17,5 @@ COPY . .
 EXPOSE 4000
 
 # Command to serve the Jekyll site
+# CMD ["bundle", "exec", "jekyll", "build", "--watch"]
 CMD ["bundle", "exec", "jekyll", "serve", "--incremental", "--livereload", "--host", "0.0.0.0"]
