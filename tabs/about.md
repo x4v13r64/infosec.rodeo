@@ -8,7 +8,7 @@ title: About
 # MIT License
 ---
 
-Xavier is a Principal Security Engineer at [Latacora](https://latacora.com), a retained security team for startups, and was previously a Managing Consultant at [NCC Group](https://nccgroup.com). He has experience in both academia and the private sector, having worked as a developer, security researcher, and consultant. Xavier currently focuses most of his time on infrastructure and cloud security.
+Xavier is a Principal Security Engineer at [Latacora](https://latacora.com), a retained security team for startups, and was previously a Managing Consultant at [NCC Group](https://nccgroup.com). He has experience in both academia and the private sector, having worked as a developer, security researcher, and consultant. His focus spans infrastructure and cloud security, and the engineering of AI systems, from agentic tooling for development and triage to autonomous vulnerability discovery.
 
 
 Xavier holds the AWS Certified Professional Solutions Architect & Security Specialty, Certified Kubernetes Administrator (CKA) and Security Specialist (CKS), Offensive Security Certified Professional (OSCP), Certified Expert (OSCE), Web Expert (OSWE) and Wireless Professional (OSWP) certifications.
